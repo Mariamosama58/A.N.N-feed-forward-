@@ -1,0 +1,41 @@
+name: Run Python Scriptt or Jupyter Notebook
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  run-script:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Set up Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.9'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install jupyter nbconvert  # تثبيت Jupyter و nbconvert لتحويل .ipynb إلى .py
+
+    - name: Check file type and run
+      run: |
+        FILE_NAME="A.N.N feed forward"  # استبدل هذا باسم الملف الخاص بك (بدون الامتداد)
+        
+        if [ -f "$FILE_NAME.ipynb" ]; then
+          echo "Jupyter Notebook (.ipynb) found. Converting to Python script..."
+          jupyter nbconvert --to script "$FILE_NAME.ipynb"
+          echo "Running the Python script..."
+          python "$FILE_NAME.py"
+        elif [ -f "$FILE_NAME.py" ]; then
+          echo "Python script (.py) found. Running the script..."
+          python "$FILE_NAME.py"
+        else
+          echo "Error: No valid file found. Please check the file name and extension."
+          exit 1
+        fi
