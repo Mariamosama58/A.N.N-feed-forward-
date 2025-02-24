@@ -25,7 +25,7 @@ jobs:
 
     - name: Check file type and run
       run: |
-        FILE_NAME="A.N.N feed forward"  # استبدل هذا باسم الملف الخاص بك (بدون الامتداد)
+        FILE_NAME="A.N.N feed forward "  # استبدل هذا باسم الملف الخاص بك (بدون الامتداد)
         
         if [ -f "$FILE_NAME.ipynb" ]; then
           echo "Jupyter Notebook (.ipynb) found. Converting to Python script..."
