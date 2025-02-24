@@ -1,0 +1,27 @@
+name: Run Python Script  # اسم Workflow
+
+on:
+  push:
+    branches:
+      - main  # سيتم تشغيل الكود عند الرفع إلى الفرع الرئيسي (main)
+
+jobs:
+  run-python:
+    runs-on: ubuntu-latest  # سيتم تشغيل الكود على نظام تشغيل Ubuntu
+
+    steps:
+    - name: Checkout repository  # تنزيل المستودع
+      uses: actions/checkout@v2
+
+    - name: Set up Python  # تثبيت Python
+      uses: actions/setup-python@v2
+      with:
+        python-version: '3.x'  # حدد إصدار Python (مثل 3.9)
+
+    - name: Install dependencies  # تثبيت المكتبات المطلوبة (إذا كان لديك ملف requirements.txt)
+      run: |
+        python -m pip install --upgrade pip
+        if [ -f requirements.txt ]; then pip install -r requirements.txt; fi
+
+    - name: Run Python script  # تشغيل ملف Python
+      run: A.N.N feed forward .ipynb  # استبدل script.py باسم ملفك
